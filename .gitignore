@@ -55,5 +55,3 @@ dkms.conf
 cub3D
 *.json
 *.cub
-minilibx-linux
-mlx_linux
