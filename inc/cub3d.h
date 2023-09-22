@@ -6,7 +6,7 @@
 /*   By: tmilcent <tmilcent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 15:10:20 by tmilcent          #+#    #+#             */
-/*   Updated: 2023/09/22 10:40:14 by tmilcent         ###   ########.fr       */
+/*   Updated: 2023/09/22 11:45:53 by tmilcent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ typedef struct s_map
 	int		map_size;
 	int		map_width;
 	int		map_height;
+	int		map_start;
+	int		map_end;
 }				t_map;
 
 // src/parsing/arg_handler.c
@@ -76,5 +78,11 @@ int		verify_textures(t_settings *settings);
 // src/parsing/colors.c
 void	feed_settings_colors(t_settings *settings, char *line);
 int		verify_colors(t_settings *settings);
+
+// src/parsing/map.c
+void	init_map(t_settings *settings);
+int		feed_settings_map(t_settings *settings, char *line);
+// int		verify_map(t_settings *settings);
+
 
 #endif
