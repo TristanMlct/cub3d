@@ -6,7 +6,7 @@
 /*   By: tmilcent <tmilcent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 21:00:01 by tmilcent          #+#    #+#             */
-/*   Updated: 2023/09/21 01:12:46 by tmilcent         ###   ########.fr       */
+/*   Updated: 2023/09/22 00:46:37 by tmilcent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 # include <unistd.h>
 # include <stdarg.h>
 
+# define INT_MAX 2147483647
+# define INT_MIN -2147483648
+
 typedef struct s_list
 {
 	void			*content;
@@ -25,6 +28,7 @@ typedef struct s_list
 
 char	*ft_itoa(int n);
 int		ft_atoi(const char *str);
+int		ft_atoi_plus(const char *str);
 void	ft_bzero(void *str, size_t n);
 void	*ft_calloc(size_t n, size_t size);
 int		ft_isalpha(int c);
@@ -32,6 +36,7 @@ int		ft_isdigit(int c);
 int		ft_isalnum(int c);
 int		ft_isascii(int c);
 int		ft_isprint(int c);
+int		ft_isint(const char *str);
 int		ft_toupper(int c);
 int		ft_tolower(int c);
 size_t	ft_strlen(const char *str);

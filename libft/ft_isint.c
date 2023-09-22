@@ -1,37 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_isint.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmilcent <tmilcent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/17 13:18:49 by tmilcent          #+#    #+#             */
-/*   Updated: 2023/09/22 00:36:08 by tmilcent         ###   ########.fr       */
+/*   Created: 2023/09/22 00:29:44 by tmilcent          #+#    #+#             */
+/*   Updated: 2023/09/22 00:59:09 by tmilcent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_atoi(const char *str)
-{
-	int			neg;
-	int			i;
-	long int	r;
+#include "libft.h"
 
-	i = 0;
+int	ft_isint(const char *str)
+{
+	int			i;
+	long long	res;
+	int			neg;
+
+	i = -1;
+	res = 0;
 	neg = 1;
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
-		i++;
-	if (str[i] == '+' || str[i] == '-')
+	if (str[0] == '-' || str[0] == '+')
 	{
-		if (str[i] == '-')
-			neg *= -1;
+		if (str[0] == '-')
+			neg = -1;
 		i++;
 	}
-	r = 0;
-	while (str[i] && str[i] >= '0' && str[i] <= '9')
+	while (str[++i])
 	{
-		r *= 10;
-		r += (str[i] - '0');
-		i++;
+		if (str[i] < '0' || str[i] > '9')
+			return (0);
+		res = res * 10 + (str[i] - '0');
+		if (res > INT_MAX || res < INT_MIN)
+			return (0);
+		if (i == 1 && neg == -1)
+			res *= -1;
 	}
-	return (r * neg);
+	return (1);
 }

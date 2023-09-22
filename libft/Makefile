@@ -6,7 +6,7 @@
 #    By: tmilcent <tmilcent@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/16 21:05:27 by tmilcent          #+#    #+#              #
-#    Updated: 2023/09/21 01:10:04 by tmilcent         ###   ########.fr        #
+#    Updated: 2023/09/22 00:46:04 by tmilcent         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ SRCS	=	ft_isalpha.c     ft_isdigit.c      ft_isalnum.c     ft_isascii.c   \
 			ft_lstmap.c                                                        \
 			ft_printf.c      ft_printf_utils.c								   \
 			get_next_line.c  get_next_line_utils.c							   \
-			ft_error.c		 ft_splitsize.c	   ft_freesplit.c				   \
+			ft_error.c		 ft_splitsize.c	   ft_freesplit.c	ft_isint.c	   \
+			ft_atoi_plus.c \
 
 OBJS	=	$(SRCS:.c=.o)
 

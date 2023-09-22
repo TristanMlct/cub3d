@@ -1,16 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_atoi_plus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmilcent <tmilcent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/17 13:18:49 by tmilcent          #+#    #+#             */
-/*   Updated: 2023/09/22 00:36:08 by tmilcent         ###   ########.fr       */
+/*   Created: 2023/09/22 00:35:52 by tmilcent          #+#    #+#             */
+/*   Updated: 2023/09/22 00:59:55 by tmilcent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_atoi(const char *str)
+#include "libft.h"
+
+int	ft_atoi_plus(const char *str)
 {
 	int			neg;
 	int			i;
@@ -18,6 +20,8 @@ int	ft_atoi(const char *str)
 
 	i = 0;
 	neg = 1;
+	if (!ft_isint(str))
+		return (-1);
 	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
 		i++;
 	if (str[i] == '+' || str[i] == '-')

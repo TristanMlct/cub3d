@@ -6,7 +6,7 @@
 /*   By: tmilcent <tmilcent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 15:10:06 by tmilcent          #+#    #+#             */
-/*   Updated: 2023/09/21 01:23:55 by tmilcent         ###   ########.fr       */
+/*   Updated: 2023/09/22 01:00:45 by tmilcent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,43 +23,37 @@ int	check_arg(int argc, char **argv)
 	return (0);
 }
 
-static void	init_settings(t_settings *settings)
+static int	verify_settings(t_settings *settings)
 {
-	settings->no = NULL;
-	settings->so = NULL;
-	settings->we = NULL;
-	settings->ea = NULL;
-	settings->f = -1;
-	settings->c = -1;
-	settings->map = NULL;
+	return (verify_textures(settings) \
+			|| verify_colors(settings));
+			// || verify_map(settings));
 }
 
-static int	free_settings(t_settings *settings)
+int	parse_file(char *path, t_settings *settings)
 {
-	if (settings->no)
-		free(settings->no);
-	if (settings->so)
-		free(settings->so);
-	if (settings->we)
-		free(settings->we);
-	if (settings->ea)
-		free(settings->ea);
-	if (settings->map)
-		free(settings->map);
-	return (1);
-}
+	int		fd;
+	char	*line;
+	int		r;
 
-int	parse_map(char *path, t_settings *settings)
-{
-	init_settings(settings);
-	if (get_textures(path, settings))
-		return (ft_error("Error\n") && free_settings(settings));
-	// if (get_colors(path))
-	// 	return (ft_error("Error\n"));
-	// if (get_map(path))
-	// 	return (ft_error("Error\n"));
-	// if (check_map())
-	// 	return (ft_error("Error\n"));
-	free_settings(settings);
-	return (0);
+	r = 0;
+	fd = open(path, O_RDONLY);
+	if (fd == -1)
+		return (1);
+	line = get_next_line(fd);
+	while (line)
+	{
+		feed_settings_textures(settings, line);
+		feed_settings_colors(settings, line);
+		// if (feed_settings_map(settings, line))
+		// {
+		// 	r = 1;
+		// 	break ;
+		// }
+		free(line);
+		line = get_next_line(fd);
+	}
+	free(line);
+	close(fd);
+	return (r || verify_settings(settings));
 }

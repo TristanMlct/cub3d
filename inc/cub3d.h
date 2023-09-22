@@ -6,7 +6,7 @@
 /*   By: tmilcent <tmilcent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 15:10:20 by tmilcent          #+#    #+#             */
-/*   Updated: 2023/09/21 00:43:12 by tmilcent         ###   ########.fr       */
+/*   Updated: 2023/09/22 10:40:14 by tmilcent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,39 @@
 # define WINDOW_WIDTH 1280
 # define WINDOW_HEIGHT 720
 
+typedef struct s_map	t_map;
+
 typedef struct s_settings
 {
 	char	*no;
 	char	*so;
 	char	*we;
 	char	*ea;
-	int		f;
-	int		c;
-	char	**map;
+	char	*fs;
+	char	*cs;
+	int		*f;
+	int		*c;
+	t_map	*map;
 }				t_settings;
 
-// src/parsing/arg_handler.c
-int	check_arg(int argc, char **argv);
-int	parse_map(char *path, t_settings *settings);
+typedef struct s_map
+{
+	char	**map;
+	int		map_size;
+	int		map_width;
+	int		map_height;
+}				t_map;
 
-// src/parsing/element.c
-int	get_textures(char *path, t_settings *settings);
+// src/parsing/arg_handler.c
+int		check_arg(int argc, char **argv);
+int		parse_file(char *path, t_settings *settings);
+
+// src/parsing/textures.c
+void	feed_settings_textures(t_settings *settings, char *line);
+int		verify_textures(t_settings *settings);
+
+// src/parsing/colors.c
+void	feed_settings_colors(t_settings *settings, char *line);
+int		verify_colors(t_settings *settings);
 
 #endif

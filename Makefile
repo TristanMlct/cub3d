@@ -6,7 +6,7 @@
 #    By: tmilcent <tmilcent@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/20 14:47:45 by tmilcent          #+#    #+#              #
-#    Updated: 2023/09/21 11:12:56 by tmilcent         ###   ########.fr        #
+#    Updated: 2023/09/21 12:07:07 by tmilcent         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ GCC = gcc -Wall -Werror -Wextra -g -fsanitize=address
 
 SRCS = 	src/main.c \
 		src/parsing/arg_handler.c \
-		src/parsing/elements.c \
+		src/parsing/textures.c \
+		src/parsing/colors.c \
 
 OBJS = $(SRCS:.c=.o)
 
