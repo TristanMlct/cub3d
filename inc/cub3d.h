@@ -6,7 +6,7 @@
 /*   By: tmilcent <tmilcent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 15:10:20 by tmilcent          #+#    #+#             */
-/*   Updated: 2023/09/22 11:45:53 by tmilcent         ###   ########.fr       */
+/*   Updated: 2023/09/23 01:04:55 by tmilcent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ typedef struct s_settings
 	char	*so;
 	char	*we;
 	char	*ea;
-	char	*fs;
-	char	*cs;
 	int		*f;
 	int		*c;
 	t_map	*map;
@@ -60,16 +58,26 @@ typedef struct s_settings
 typedef struct s_map
 {
 	char	**map;
-	int		map_size;
-	int		map_width;
-	int		map_height;
-	int		map_start;
-	int		map_end;
+	int		width;
+	int		height;
+	int		start_line;
+	int		end_line;
 }				t_map;
 
 // src/parsing/arg_handler.c
-int		check_arg(int argc, char **argv);
+int		is_arg_valid(int argc, char **argv);
+
+// src/parsing/analyse_file.c
 int		parse_file(char *path, t_settings *settings);
+
+// src/parsing/analyse_line.c
+int		is_valid_map_line(char *line);
+int		is_map_last(char *line, t_settings *settings);
+int		is_settings(char *line);
+int		is_empty_line(char *line);
+
+// src/parsing/utils.c
+void	init_map(t_settings *settings);
 
 // src/parsing/textures.c
 void	feed_settings_textures(t_settings *settings, char *line);
@@ -80,7 +88,6 @@ void	feed_settings_colors(t_settings *settings, char *line);
 int		verify_colors(t_settings *settings);
 
 // src/parsing/map.c
-void	init_map(t_settings *settings);
 int		feed_settings_map(t_settings *settings, char *line);
 // int		verify_map(t_settings *settings);
 
