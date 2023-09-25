@@ -6,7 +6,7 @@
 /*   By: tmilcent <tmilcent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 22:26:28 by tmilcent          #+#    #+#             */
-/*   Updated: 2023/09/23 01:21:36 by tmilcent         ###   ########.fr       */
+/*   Updated: 2023/09/24 01:15:39 by tmilcent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	is_valid_map_line(char *line)
 	return (1);
 }
 
-int	is_map_last(char *line, t_settings *settings)
+int	is_map_last(t_settings *settings)
 {
 	if (!settings->no || !settings->so || !settings->we || !settings->ea \
 		|| !settings->f || !settings->c)
@@ -49,7 +49,7 @@ int	is_map_last(char *line, t_settings *settings)
 	return (1);
 }
 
-int	is_settings(char *line)
+int	is_element(char *line)
 {
 	char	*tmp;
 
@@ -70,10 +70,8 @@ int	is_settings(char *line)
 
 int	is_empty_line(char *line)
 {
-	int		i;
 	char	*tmp;
 
-	i = -1;
 	tmp = ft_strtrim(line, " \n");
 	if (!ft_strlen(tmp))
 	{
@@ -84,18 +82,22 @@ int	is_empty_line(char *line)
 	return (0);
 }
 
-void	feed_settings(t_settings *settings, char *line)
+void	feed_elements(t_settings *settings, char *line)
 {
-	if (line[0] == 'N' && line[1] == 'O')
-		settings->no = get_path(line);
-	else if (line[0] == 'S' && line[1] == 'O')
-		settings->so = get_path(line);
-	else if (line[0] == 'W' && line[1] == 'E')
-		settings->we = get_path(line);
-	else if (line[0] == 'E' && line[1] == 'A')
-		settings->ea = get_path(line);
-	else if (line[0] == 'F')
-		settings->f = get_color(line);
-	else if (line[0] == 'C')
-		settings->c = get_color(line);
+	char	*tmp;
+
+	tmp = ft_strtrim(line, " \n");
+	if (tmp[0] == 'N' && tmp[1] == 'O')
+		settings->no = get_path(tmp);
+	else if (tmp[0] == 'S' && tmp[1] == 'O')
+		settings->so = get_path(tmp);
+	else if (tmp[0] == 'W' && tmp[1] == 'E')
+		settings->we = get_path(tmp);
+	else if (tmp[0] == 'E' && tmp[1] == 'A')
+		settings->ea = get_path(tmp);
+	else if (tmp[0] == 'F')
+		settings->f = get_color(tmp);
+	else if (tmp[0] == 'C')
+		settings->c = get_color(tmp);
+	free(tmp);
 }

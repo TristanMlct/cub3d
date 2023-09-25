@@ -1,13 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_utils.c                                        :+:      :+:    :+:   */
+/*   ft_isdigit_str.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmilcent <tmilcent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/22 13:22:44 by tmilcent          #+#    #+#             */
-/*   Updated: 2023/09/22 13:22:50 by tmilcent         ###   ########.fr       */
+/*   Created: 2023/09/23 23:47:36 by tmilcent          #+#    #+#             */
+/*   Updated: 2023/09/23 23:47:42 by tmilcent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
+
+int	ft_isdigit_str(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+		if (!ft_isdigit(str[i]))
+			return (0);
+	return (1);
+}

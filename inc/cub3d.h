@@ -6,7 +6,7 @@
 /*   By: tmilcent <tmilcent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 15:10:20 by tmilcent          #+#    #+#             */
-/*   Updated: 2023/09/23 01:04:55 by tmilcent         ###   ########.fr       */
+/*   Updated: 2023/09/24 17:29:03 by tmilcent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@ typedef struct s_map
 	int		height;
 	int		start_line;
 	int		end_line;
+	char	player;
+	int		pos_x;
+	int		pos_y;
 }				t_map;
 
 // src/parsing/arg_handler.c
@@ -72,24 +75,30 @@ int		parse_file(char *path, t_settings *settings);
 
 // src/parsing/analyse_line.c
 int		is_valid_map_line(char *line);
-int		is_map_last(char *line, t_settings *settings);
-int		is_settings(char *line);
+int		is_map_last(t_settings *settings);
+int		is_element(char *line);
 int		is_empty_line(char *line);
+void	feed_elements(t_settings *settings, char *line);
 
 // src/parsing/utils.c
-void	init_map(t_settings *settings);
+void	map_to_null(t_settings *settings);
+void	settings_to_null(t_settings *settings);
+int		free_settings(t_settings *settings);
+int		exit_error(t_settings *settings);
 
 // src/parsing/textures.c
-void	feed_settings_textures(t_settings *settings, char *line);
-int		verify_textures(t_settings *settings);
+int		is_valid_texture(char *line);
+char	*get_path(char *texture_line);
 
 // src/parsing/colors.c
-void	feed_settings_colors(t_settings *settings, char *line);
-int		verify_colors(t_settings *settings);
+int		is_valid_color(char *line);
+int		*get_color(char *color_line);
 
 // src/parsing/map.c
-int		feed_settings_map(t_settings *settings, char *line);
-// int		verify_map(t_settings *settings);
+int		feed_map_settings(t_settings *settings, char *line, int line_nb);
+int		init_map(char *path, t_settings *settings);
 
+// src/parsing/map2.c
+int		is_map_valid(t_settings *settings);
 
 #endif

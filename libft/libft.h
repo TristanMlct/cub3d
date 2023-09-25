@@ -6,7 +6,7 @@
 /*   By: tmilcent <tmilcent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 21:00:01 by tmilcent          #+#    #+#             */
-/*   Updated: 2023/09/22 00:46:37 by tmilcent         ###   ########.fr       */
+/*   Updated: 2023/09/24 14:02:44 by tmilcent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	ft_bzero(void *str, size_t n);
 void	*ft_calloc(size_t n, size_t size);
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
+int		ft_isdigit_str(char *str);
 int		ft_isalnum(int c);
 int		ft_isascii(int c);
 int		ft_isprint(int c);
@@ -52,6 +53,7 @@ char	*ft_strchr(const char *str, int c);
 char	*ft_strrchr(const char *str, int c);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strtrim(char const *s1, char const *set);
+char	*ft_strtrim_right(char const *str, char const *set);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char	*ft_strnstr(const char *str, const char *to_find, size_t n);

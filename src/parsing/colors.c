@@ -6,103 +6,74 @@
 /*   By: tmilcent <tmilcent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 11:42:24 by tmilcent          #+#    #+#             */
-/*   Updated: 2023/09/22 10:36:27 by tmilcent         ###   ########.fr       */
+/*   Updated: 2023/09/23 23:58:04 by tmilcent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	is_rgb_int(int r, int g, int b)
-{
-	if (r < 0 || r > 255)
-		return (1);
-	if (g < 0 || g > 255)
-		return (1);
-	if (b < 0 || b > 255)
-		return (1);
-	return (0);
-}
-
-static int	get_rgb_value(char **element, t_settings *settings, int is_floor)
+static int	is_valid_rgb(char *line)
 {
 	char	**tmp_split;
+	int		r;
 
-	tmp_split = ft_split(*element, ',');
+	r = 1;
+	tmp_split = ft_split(line, ',');
 	if (ft_splitsize(tmp_split) != 3)
-	{
-		ft_freesplit(tmp_split);
-		return (1);
-	}
-	if (is_floor)
-	{
-		settings->f[0] = ft_atoi_plus(tmp_split[0]);
-		settings->f[1] = ft_atoi_plus(tmp_split[1]);
-		settings->f[2] = ft_atoi_plus(tmp_split[2]);
-	}
+		r = 0;
+	else if (!ft_isdigit_str(tmp_split[0]) \
+			|| !ft_isdigit_str(tmp_split[1]) \
+			|| !ft_isdigit_str(tmp_split[2]))
+		r = 0;
+	else if (ft_atoi_plus(tmp_split[0]) < 0 || ft_atoi_plus(tmp_split[0]) > 255 \
+			|| ft_atoi_plus(tmp_split[1]) < 0 \
+			|| ft_atoi_plus(tmp_split[1]) > 255 \
+			|| ft_atoi_plus(tmp_split[2]) < 0 \
+			|| ft_atoi_plus(tmp_split[2]) > 255)
+		r = 0;
+	ft_freesplit(tmp_split);
+	return (r);
+}
+
+int	is_valid_color(char *line)
+{
+	char	**tmp_split;
+	char	*tmp;
+	int		r;
+
+	r = 1;
+	tmp = ft_strtrim(line, " \n");
+	tmp_split = ft_split(tmp, ' ');
+	if (ft_splitsize(tmp_split) != 2 || ft_strlen(tmp_split[0]) != 1)
+		r = 0;
+	else if (ft_strncmp(tmp, "F", 1) && ft_strncmp(tmp, "C", 1))
+		r = 0;
 	else
 	{
-		settings->c[0] = ft_atoi_plus(tmp_split[0]);
-		settings->c[1] = ft_atoi_plus(tmp_split[1]);
-		settings->c[2] = ft_atoi_plus(tmp_split[2]);
-	}
-	ft_freesplit(tmp_split);
-	return (0);
-}
-
-static int	get_color_value(char **element, t_settings *settings, int is_floor)
-{
-	char	*tmp;
-	char	**tmp_split;
-
-	tmp = ft_strtrim(*element, " \n");
-	free(*element);
-	*element = tmp;
-	tmp_split = ft_split(*element, ' ');
-	if (ft_splitsize(tmp_split) != 2)
-	{
-		ft_freesplit(tmp_split);
-		return (1);
-	}
-	if (get_rgb_value(&tmp_split[1], settings, is_floor))
-	{
-		ft_freesplit(tmp_split);
-		return (1);
-	}
-	ft_freesplit(tmp_split);
-	return (0);
-}
-
-int	verify_colors(t_settings *settings)
-{
-	if (!settings->f || !settings->c)
-		return (1);
-	if (get_color_value(&settings->fs, settings, 1))
-		return (1);
-	if (get_color_value(&settings->cs, settings, 0))
-		return (1);
-	if (is_rgb_int(settings->f[0], settings->f[1], settings->f[2]))
-		return (1);
-	if (is_rgb_int(settings->c[0], settings->c[1], settings->c[2]))
-		return (1);
-	ft_printf("F : %d %d %d\n", settings->f[0], settings->f[1], settings->f[2]);
-	ft_printf("C : %d %d %d\n", settings->c[0], settings->c[1], settings->c[2]);
-	return (0);
-}
-
-void	feed_settings_colors(t_settings *settings, char *line)
-{
-	char	*tmp;
-
-	tmp = ft_strtrim(line, " ");
-	if (tmp[0] == 'F')
-	{
-		settings->fs = ft_strdup(tmp);
-		settings->f = malloc(sizeof(int) * 3);
-	}
-	else if (tmp[0] == 'C')
-	{
-		settings->cs = ft_strdup(tmp);
-		settings->c = malloc(sizeof(int) * 3);
+		if (!is_valid_rgb(tmp_split[1]))
+			r = 0;
 	}
 	free(tmp);
+	ft_freesplit(tmp_split);
+	return (r);
+}
+
+int	*get_color(char *color_line)
+{
+	char	**tmp_split;
+	char	**tmp_split2;
+	char	*tmp;
+	int		*color;
+
+	tmp = ft_strtrim(color_line, " \n");
+	tmp_split = ft_split(tmp, ' ');
+	free(tmp);
+	tmp_split2 = ft_split(tmp_split[1], ',');
+	ft_freesplit(tmp_split);
+	color = malloc(sizeof(int) * 3);
+	color[0] = ft_atoi_plus(tmp_split2[0]);
+	color[1] = ft_atoi_plus(tmp_split2[1]);
+	color[2] = ft_atoi_plus(tmp_split2[2]);
+	ft_freesplit(tmp_split2);
+	return (color);
 }

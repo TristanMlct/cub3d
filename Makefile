@@ -6,19 +6,23 @@
 #    By: tmilcent <tmilcent@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/20 14:47:45 by tmilcent          #+#    #+#              #
-#    Updated: 2023/09/22 22:46:08 by tmilcent         ###   ########.fr        #
+#    Updated: 2023/09/25 16:24:35 by tmilcent         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 
-GCC = gcc -g -fsanitize=address
+GCC = gcc -Wall -Werror -Wextra -g -fsanitize=address
 
 SRCS = 	src/main.c \
 		src/parsing/arg_handler.c \
 		src/parsing/analyse_file.c \
 		src/parsing/analyse_line.c \
 		src/parsing/utils.c \
+		src/parsing/textures.c \
+		src/parsing/colors.c \
+		src/parsing/map.c \
+		src/parsing/map2.c \
 
 OBJS = $(SRCS:.c=.o)
 
